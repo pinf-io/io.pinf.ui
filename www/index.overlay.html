@@ -1,0 +1,18 @@
+{{? at.bodyAttributes }}
+
+    x-widget="io.pinf.ui/1-layout/body"
+
+{{?? at.footerScripts }}
+
+    <script src="//io-pinf-server-requirejs.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/lib/require.js"></script>
+    <script src="//io-pinf-server-requirejs.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/loader.js"></script>
+    <script>
+        require(["//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/firewidgets.js"], function(WIDGETS) {
+        	WIDGETS.init({
+        		widgetBaseUri: "//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/widget",
+        		serviceBaseUri: "//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/service"
+        	});
+        });
+    </script>
+
+{{?}}
