@@ -53,9 +53,21 @@ exports.main = function(callback) {
 		    			if (exists) {
 		    				function processOverlay() {
 				    			var urls = [].concat(pio._config.config["pio.service"].config.www.extends);
-				    			function proxyUpstream(host) {
-					    			var url = "http://" + host + pathname;
-					    			return REQUEST(url, function(err, response, body) {
+				    			function proxyUpstream(upstreamInfo) {
+				    				if (typeof upstreamInfo === "string") {
+				    					upstreamInfo = {
+				    						host: upstreamInfo
+				    					};
+				    				}
+				    				var headers = {};
+				    				if (upstreamInfo.theme) {
+										headers["x-theme"] = upstreamInfo.theme;
+				    				}
+					    			var url = "http://" + upstreamInfo.host + pathname;
+					    			return REQUEST({
+					    				url: url,
+					    				headers: headers
+					    			}, function(err, response, body) {
 					    				if (err) return next(err);
 					    				if (response.statusCode === 404) {
 					    					if (urls.length === 0) return next(new Error("No upstream file found at url '" + url + "' even though we have an overlay at '" + overlayPath + "'! Remove the overlay or make sure the file is served by upstream server."));
@@ -129,19 +141,32 @@ exports.main = function(callback) {
 		    				return processOverlay();
 		    			}
 		    			var urls = [].concat(pio._config.config["pio.service"].config.www.extends);
-		    			function forwardUpstream(host) {
-							var url = "http://" + host + pathname;
+		    			function forwardUpstream(upstreamInfo) {
+		    				if (typeof upstreamInfo === "string") {
+		    					upstreamInfo = {
+		    						host: upstreamInfo
+		    					};
+		    				}
+		    				var headers = {};
+		    				if (upstreamInfo.theme) {
+								headers["x-theme"] = upstreamInfo.theme;
+		    				}
+							var url = "http://" + upstreamInfo.host + pathname;
 		    				return REQUEST({
 		    					url: url,
-		    					method: "HEAD"
+		    					method: "HEAD",
+		    					headers: headers
 		    				}, function(err, response, body) {
 		    					if (err) return next(err);
 		    					if (response.statusCode === 404) {
 			    					if (urls.length === 0) return next();
 			    					return forwardUpstream(urls.pop());
 		    					}
+			    				if (upstreamInfo.theme) {
+					    			req.headers["x-theme"] = upstreamInfo.theme;
+			    				}
 					            return proxy.web(req, res, {
-					                target: "http://" + host
+					                target: "http://" + upstreamInfo.host
 					            }, function(err) {
 					                if (err.code === "ECONNREFUSED") {
 					                    res.writeHead(502);
