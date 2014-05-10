@@ -1,17 +1,107 @@
-{{? at.bodyAttributes }}
+
+{{? at.headerScripts }}
+
+    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+{{?? at.bodyAttributes }}
 
     x-widget="io.pinf.ui/1-layout/body"
 
 {{?? at.footerScripts }}
 
-    <script src="//io-pinf-server-requirejs.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/lib/require.js"></script>
-    <script src="//io-pinf-server-requirejs.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/loader.js"></script>
+    <!--
+        Global UI API
+    -->
     <script>
-        require(["//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/firewidgets.js"], function(WIDGETS) {
-        	WIDGETS.init({
-        		widgetBaseUri: "//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/widget",
-        		serviceBaseUri: "//io-pinf-server-firewidgets.os-inception-i2a83.vm.cadorn.github.pinf.me:8013/service"
-        	});
+        window.API = {
+            helpers: null,
+            load: {
+                static: null
+            }
+        };
+    </script>
+
+
+    <!--
+        Our static resource container
+    -->
+    <script src="/lib/require.js"></script>
+    <script src="/lib/require-loader.js"></script>
+    <script>
+        window.API.load.static = io_pinf_server_requirejs.load;
+    </script>
+
+
+    <!--
+        Boot UI
+    -->
+    <script>
+
+        /**
+         * UI Helpers
+         */
+        window.API.load.static("helpers", function(err, HELPERS) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            window.API.helpers = HELPERS;
+
+            var Q = window.API.helpers.API.Q;
+
+            var views = Q.denodeify()
+
+            /**
+             * Views
+             */
+            var views = Q.nbind(window.API.load.static, null)("sammy").then(function(SAMMY) {
+                return SAMMY(function() {
+
+                    this.get('#/', function() {
+
+console.log("home!");
+
+                    });
+
+                    this.get('#/about', function() {
+
+console.log("about!");
+
+                    });
+
+                    this.get('#/clone', function() {
+
+console.log("clone!");
+
+                    });
+
+                });
+            }).fail(function(err) {
+                console.error(err);                
+            });
+
+            /**
+             * Components
+             */
+            var components = Q.nbind(window.API.load.static, null)("firewidgets").then(function(firewidgets) {
+
+                var firewidgetsHost = window.location.host.replace(/^io-pinf-ui/, "io-pinf-server-firewidgets");
+
+                return firewidgets.init({
+                    widgetBaseUri: "//" + firewidgetsHost + "/widget",
+                    serviceBaseUri: "//" + firewidgetsHost + "/service"
+                });
+            });
+
+            return Q.spread([
+                views,
+                components
+            ], function(views, components) {
+
+                views.run("#/");
+            });
         });
     </script>
 

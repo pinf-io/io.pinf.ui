@@ -1,2 +1,76 @@
 
-<div x-widget="io.pinf.ui/2-pio/services/client"></div>
+<!-- header logo: style can be found in header.less -->
+<header class="header">
+    <a href="index.html" class="logo">
+        DeveloperCompanion
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-right">
+			<a href="#/clone" class="btn btn-danger navbar-btn navbar-right">Clone System</a>
+            <ul class="nav navbar-nav">
+
+				<li><a href="#/about">About</a></li>
+
+
+                <!-- Messages: style can be found in dropdown.less-->
+                <!--
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 4 messages</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
+                                        </div>
+                                        <h4>
+                                            Support Team
+                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                        </h4>
+                                        <p>Why not buy a new awesome theme?</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">See All Messages</a></li>
+                    </ul>
+                </li>
+	            -->
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+
+    <aside class="left-side sidebar-offcanvas">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="#/">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <aside class="right-side">
+
+		<div x-widget="io.pinf.ui/2-pio/services/box" x-widget-replace="true"></div>
+
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+

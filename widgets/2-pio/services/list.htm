@@ -1,0 +1,7 @@
+
+{{ for(var serviceId in it.services) { }}
+	<tr>
+	    <td>{{=serviceId}}</td>
+	    <td><div id="{{=serviceId}}-status"></div></td>
+	</tr>
+{{ } }}
