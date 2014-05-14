@@ -1,12 +1,11 @@
 
 {{? at.headerScripts }}
 
-    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <link href="style.css" rel="stylesheet" type="text/css" />
 
 {{?? at.bodyAttributes }}
 
-    x-widget="io.pinf.ui/1-layout/body"
+    x-widget="{{=at.view.widget.body}}"
 
 {{?? at.footerScripts }}
 
@@ -18,7 +17,8 @@
             helpers: null,
             load: {
                 static: null
-            }
+            },
+            config: {{=at.config}}
         };
     </script>
 
