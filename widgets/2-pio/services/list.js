@@ -20,7 +20,7 @@ define(function() {
 
 						var services = {};
 						for (var serviceId in _services.data) {
-							services[serviceId.replace(/\./g, "-")] = _services.data;
+							services[serviceId.replace(/\./g, "-")] = _services.data[serviceId];
 						}
 
 						return self.setHTM(_htm, {
