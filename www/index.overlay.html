@@ -57,26 +57,32 @@
              * Views
              */
             var views = Q.nbind(window.API.load.static, null)("sammy").then(function(SAMMY) {
-                return SAMMY(function() {
-
-                    this.get('#/', function() {
-
-console.log("home!");
-
+                var sammy = null;
+                return Q.denodeify(function (callback) {
+                    sammy = SAMMY(function() {
+                        return HELPERS.getViews().then(function(views) {
+                            var latestWidgets = [];
+                            Object.keys(views).forEach(function(route) {
+                                var view = views[route];
+                                console.log("Register view", route, view);
+                                return sammy.get(route, function() {
+                                    console.log("Show view", route, view);
+                                    if (latestWidgets) {
+                                        while (latestWidgets.length > 0) {
+                                            latestWidgets.shift().destroy();
+                                        }
+                                    }
+                                    return HELPERS.renderWidgetIntoDomId("view-content-container", view.widget).then(function (widgets) {
+                                        widgets.reverse();
+                                        latestWidgets = latestWidgets.concat(widgets);
+                                    });
+                                });
+                            });
+                            return callback(null);
+                        }).fail(callback);
                     });
-
-                    this.get('#/about', function() {
-
-console.log("about!");
-
-                    });
-
-                    this.get('#/clone', function() {
-
-console.log("clone!");
-
-                    });
-
+                })().then(function() {
+                    return sammy;
                 });
             }).fail(function(err) {
                 console.error(err);                
@@ -99,7 +105,6 @@ console.log("clone!");
                 views,
                 components
             ], function(views, components) {
-
                 views.run("#/");
             });
         });

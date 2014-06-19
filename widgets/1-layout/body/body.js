@@ -14,9 +14,8 @@ define(function() {
 					resources: [ "htm" ],
 					handler: function(_htm) {
 
-						self.setHTM(_htm);
+						return self.setHTM(_htm).then(function() {
 
-						try {
 							//Enable sidebar toggle
 						    $("[data-toggle='offcanvas']").click(function(e) {
 						        e.preventDefault();
@@ -92,7 +91,7 @@ define(function() {
 						    });
 
 						    /* Sidebar tree view */
-						    $(".sidebar .treeview").tree();
+						    //$(".sidebar .treeview").tree();
 
 						    /* 
 						     * Make sure that the sidebar is streched full height
@@ -118,6 +117,19 @@ define(function() {
 						    }
 						    //Fire upon load
 						    _fix();
+
+							function fix_sidebar() {
+							    //Make sure the body tag has the .fixed class
+							    if (!$("body").hasClass("fixed")) {
+							        return;
+							    }
+
+							    //Add slimscroll
+							    $(".sidebar").slimscroll({
+							        height: ($(window).height() - $(".header").height()) + "px",
+							        color: "rgba(0,0,0,0.2)"
+							    });
+							}
 						    //Fire when wrapper is resized
 						    $(".wrapper").resize(function() {
 						        _fix();
@@ -132,21 +144,16 @@ define(function() {
 						     * iCheck plugin in.
 						     * You can find the documentation at http://fronteed.com/iCheck/
 						     */
+						    /*
 						    $("input[type='checkbox'], input[type='radio']").iCheck({
 						        checkboxClass: 'icheckbox_minimal',
 						        radioClass: 'iradio_minimal'
 						    });
-
-						} catch(err) {
-							console.error("For some reason this throws at times.", err);
-							// TODO: Don't silence errors once this is fixed.
-						}
-
-						return;
+							*/
+						});
 					}
 				}
 			]
 		);
 	};
 });
-

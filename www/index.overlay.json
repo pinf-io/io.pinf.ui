@@ -3,5 +3,19 @@
 		"widget": {
 			"body": "io.pinf.ui/1-layout/body"
 		}
+	},
+	"views": {
+		"#/": {
+			"title": "Dashboard",
+			"widget": "io.pinf.ui/2-views/dashboard"
+		},
+		"#/about": {			
+			"title": "About DeveloperCompanion",
+			"widget": "io.pinf.ui/2-views/about"
+		},
+		"#/logs": {			
+			"title": "Logs",
+			"widget": "io.pinf.ui/2-views/logs"
+		}
 	}
 }
