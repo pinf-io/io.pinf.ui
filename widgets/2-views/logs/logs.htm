@@ -5,9 +5,171 @@
 
 <section class="content">
 
-    <table class="table table-bordered">
-        <tbody x-widget="io.pinf.server.log/list">
-        </tbody>
-    </table>
+
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#service" data-toggle="tab">Service</a></li>
+		<li><a href="#incoming" data-toggle="tab">Incoming</a></li>
+		<li><a href="#identified" data-toggle="tab">Identified</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="service">
+
+			<p>The various logs for all services on this system.</p>
+
+		    <table class="table table-bordered table-condensed table-clickable-rows">
+		        <tbody x-widget="io.pinf.server.log/service-files">
+		        </tbody>
+		    </table>
+
+		</div>
+		<div class="tab-pane" id="incoming">
+
+			<p>All log streams by <b>IP</b> and also by <b>Device</b> if sufficient metadata is available.</p>
+			<p>Once a log stream has been identified as belonging to a user it will show up under the <b>Identified</b> tab above as well.</p>
+
+			<div class="row">
+
+				<h3>Devices</h3>
+
+			    <table class="table table-bordered table-condensed table-clickable-rows">
+			        <tbody x-widget="io.pinf.server.log/incoming-devices">
+			        </tbody>
+			    </table>
+
+			</div>
+
+			<div class="row">
+
+				<h3>IPs</h3>
+
+			    <table class="table table-bordered table-condensed table-clickable-rows">
+			        <tbody x-widget="io.pinf.server.log/incoming-ips">
+			        </tbody>
+			    </table>
+
+			</div>
+
+			<div class="row">
+
+				<h3>Setup Information</h3>
+
+				<ul>
+					<li>Raw TCP (telnet)</li>
+					<ul>
+						<li>Connect: <code class="setup-info-telnet"></code></li>
+						<li>Select channel using first line: <code>&lt;device-id&gt;-&lt;instance-id&gt;\n</code></li>
+					</ul>
+				</ul>
+			</div>
+
+		</div>
+		<div class="tab-pane" id="identified">
+
+			<p>All log streams that could be tied to an identity. If the log you are looking
+			for does not show up here check the <b>Incoming</b> tab above. Maybe things failed before an 
+			identity could be established!</p>
+
+			<h3>Identities</h3>
+
+		    <table class="table table-bordered table-condensed table-clickable-rows">
+		        <tbody x-widget="io.pinf.server.log/incoming-identified">
+		        </tbody>
+		    </table>
+
+		</div>
+	</div>
 
 </section>
+
+
+
+
+<div class="modal fade" id="modal-viewer-rawlog" tabindex="-1" role="dialog" aria-labelledby="modal-viewer-rawlog-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modal-viewer-rawlog-label">Log Stream</h4>
+      </div>
+      <div class="modal-body">
+      	<table>
+      		<tr>
+      			<td class="menu">
+					<nav class="navbar navbar-right" role="navigation">
+					  <div class="container-fluid">
+						<div class="start"></div>
+						<div class="size"></div>
+				        <button class="btn btn-default btn-xs button-showall">Show All</button>
+				        <button class="btn btn-default btn-xs button-download">Download All</button>
+				        <button class="btn btn-default btn-xs button-print">Print</button>
+					  </div>
+					</nav>
+      			</td>
+      		</tr>
+      		<tr>
+      			<td>
+			      	<iframe></iframe>
+      			</td>
+      		</tr>
+      	</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-viewer-log-meta" tabindex="-1" role="dialog" aria-labelledby="modal-viewer-log-meta-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modal-viewer-log-meta-label">Meta Info</h4>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+	TABLE.table-clickable-rows TR:hover {
+		background-color: #bcbcbc;
+		cursor: pointer;
+	}
+	#modal-viewer-rawlog DIV.modal-dialog {
+		width: 90%
+	}
+	#modal-viewer-rawlog DIV.modal-body {
+		padding: 0px;
+	}
+	#modal-viewer-rawlog DIV.modal-body TABLE {
+		width: 100%;
+		height: 100%;
+	}
+	#modal-viewer-rawlog DIV.modal-body TABLE TD.menu {
+		padding-bottom: 5px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	#modal-viewer-rawlog DIV.modal-body TABLE TD.menu DIV.start,
+	#modal-viewer-rawlog DIV.modal-body TABLE TD.menu DIV.size {
+		display: inline-block;
+		margin-right: 20px;
+	}
+	#modal-viewer-rawlog DIV.modal-body TABLE TR:first-child .navbar {
+		background-color: #ffffff;
+		margin-bottom: 0px;
+		border: 0px;
+		min-height: 15px;
+	}
+	#modal-viewer-rawlog DIV.modal-body TABLE TR:last-child {
+		height: 100%;
+	}
+	#modal-viewer-rawlog DIV.modal-body IFRAME {
+		border: 0px;
+		width: 100%;
+		height: 100%;
+	}
+	#modal-viewer-log-meta DIV.modal-dialog {
+		width: 90%
+	}
+</style>

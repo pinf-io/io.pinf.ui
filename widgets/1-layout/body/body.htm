@@ -1,9 +1,7 @@
 
 <!-- header logo: style can be found in header.less -->
 <header class="header">
-    <a href="index.html" class="logo">
-        DeveloperCompanion
-    </a>
+    <a href="index.html" class="logo">{{=it.logo.label}}</a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -57,17 +55,7 @@
 
     <aside class="left-side sidebar-offcanvas">
         <section class="sidebar">
-            <ul class="sidebar-menu">
-                <li class="active">
-                    <a href="#/">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/logs">
-                        <i class="fa"></i> <span>Logs</span>
-                    </a>
-                </li>
+            <ul class="sidebar-menu" id="sidebar-menu-container">
             </ul>
         </section>
     </aside>

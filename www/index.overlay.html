@@ -61,11 +61,34 @@
                 return Q.denodeify(function (callback) {
                     sammy = SAMMY(function() {
                         return HELPERS.getViews().then(function(views) {
+                            var activeView = null;
                             var latestWidgets = [];
-                            Object.keys(views).forEach(function(route) {
-                                var view = views[route];
+                            Object.keys(views).forEach(function(routeExpr) {
+                                var view = views[routeExpr];
+                                var route = routeExpr;
+                                if (/^\/.+\/$/.test(routeExpr)) {
+                                    routeExpr = new RegExp(route.replace(/(^\/|\/$)/g, ""));
+                                    route = view.link;
+                                }
                                 console.log("Register view", route, view);
-                                return sammy.get(route, function() {
+                                if (view.aspects) {
+                                    if (view.aspects["sidebar-menu-container"]) {
+                                        var html = [];
+                                        html.push('<li>');
+                                        html.push('<a href="' + route + '">');
+                                        html.push('<i class="fa ' + view.aspects["sidebar-menu-container"].style + '"></i> <span>' + view.aspects["sidebar-menu-container"].label + '</span>');
+                                        html.push('</a>');
+                                        html.push('</li>');
+                                        $(html.join("")).appendTo($("#sidebar-menu-container"));
+                                    }
+                                }
+                                return sammy.get(routeExpr, function() {
+                                    if (activeView === route) {
+                                        // If view has not changed we don't reload it.
+                                        // TODO: Optionally force-reload view.
+                                        return;
+                                    }
+                                    activeView = route;
                                     console.log("Show view", route, view);
                                     if (latestWidgets) {
                                         while (latestWidgets.length > 0) {
@@ -92,9 +115,8 @@
              * Components
              */
             var components = Q.nbind(window.API.load.static, null)("firewidgets").then(function(firewidgets) {
-
                 var firewidgetsHost = window.location.host.replace(/^io-pinf-ui/, "io-pinf-server-firewidgets");
-
+                firewidgets.setAPI(window.API.helpers.API);
                 return firewidgets.init({
                     widgetBaseUri: "//" + firewidgetsHost + "/widget",
                     serviceBaseUri: "//" + firewidgetsHost + "/service"
@@ -106,6 +128,8 @@
                 components
             ], function(views, components) {
                 views.run("#/");
+            }).fail(function(err) {
+                console.error(err);
             });
         });
     </script>

@@ -1,7 +1,9 @@
 define([
 	"q",
-	"firewidgets"
-], function(Q, FIREWIDGETS) {
+	"firewidgets",
+	"underscore",
+	"backbone"
+], function(Q, FIREWIDGETS, UNDERSCORE, BACKBONE) {
 
 	function getViews() {
 		return Q.resolve(window.API.config.views);
@@ -15,7 +17,8 @@ define([
 
 	return {
 		API: {
-			Q: Q
+			Q: Q,
+			BACKBONE: BACKBONE
 		},
 		getViews: getViews,
 		renderWidgetIntoDomId: renderWidgetIntoDomId

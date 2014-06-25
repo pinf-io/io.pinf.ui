@@ -1,4 +1,8 @@
 {
+	"hostname": "{{=config.pio.hostname}}",
+	"logo": {
+		"label": "PINF.io UI Prototype"
+	},
 	"view": {
 		"widget": {
 			"body": "io.pinf.ui/1-layout/body"
@@ -7,15 +11,31 @@
 	"views": {
 		"#/": {
 			"title": "Dashboard",
-			"widget": "io.pinf.ui/2-views/dashboard"
+			"widget": "io.pinf.ui/2-views/dashboard",
+			"aspects": {
+				"sidebar-menu-container": {
+					"label": "Dashboard",
+					"style": "fa-dashboard"
+				}
+			}
 		},
-		"#/about": {			
-			"title": "About DeveloperCompanion",
+		"/\\#\\/logs\\/?(.*)$/": {
+			"link": "#/logs",
+			"title": "Logs",
+			"widget": "io.pinf.ui/2-views/logs",
+			"aspects": {
+				"sidebar-menu-container": {
+					"label": "Logs"
+				}
+			}
+		},
+		"#/about": {
+			"title": "About PINF.io UI Prototype",
 			"widget": "io.pinf.ui/2-views/about"
 		},
-		"#/logs": {			
-			"title": "Logs",
-			"widget": "io.pinf.ui/2-views/logs"
+		"#/clone": {
+			"title": "Clone",
+			"widget": "io.pinf.ui/2-views/clone"
 		}
 	}
 }
