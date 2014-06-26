@@ -16,6 +16,10 @@ define(function() {
 
 						return self.setHTM(_htm).then(function() {
 
+							var HELPERS = window.API.helpers;
+				            var Q = HELPERS.API.Q;
+
+
 							//Enable sidebar toggle
 						    $("[data-toggle='offcanvas']").click(function(e) {
 						        e.preventDefault();
@@ -150,6 +154,70 @@ define(function() {
 						        radioClass: 'iradio_minimal'
 						    });
 							*/
+
+
+
+				            /**
+				             * Views
+				             */
+				            var views = Q.nbind(window.API.load.static, null)("sammy").then(function(SAMMY) {
+				                var sammy = null;
+				                return Q.denodeify(function (callback) {
+				                    sammy = SAMMY(function() {
+				                        return HELPERS.getViews().then(function(views) {
+				                            var activeView = null;
+				                            var latestWidgets = [];
+				                            Object.keys(views).forEach(function(routeExpr) {
+				                                var view = views[routeExpr];
+				                                var route = routeExpr;
+				                                if (/^\/.+\/$/.test(routeExpr)) {
+				                                    routeExpr = new RegExp(route.replace(/(^\/|\/$)/g, ""));
+				                                    route = view.link;
+				                                }
+				                                console.log("Register view", route, view);
+				                                if (view.aspects) {
+				                                    if (view.aspects["sidebar-menu-container"]) {
+				                                        var html = [];
+				                                        html.push('<li>');
+				                                        html.push('<a href="' + route + '">');
+				                                        html.push('<i class="fa ' + view.aspects["sidebar-menu-container"].style + '"></i> <span>' + view.aspects["sidebar-menu-container"].label + '</span>');
+				                                        html.push('</a>');
+				                                        html.push('</li>');
+				                                        $(html.join("")).appendTo($("#sidebar-menu-container"));
+				                                    }
+				                                }
+				                                return sammy.get(routeExpr, function() {
+				                                    if (activeView === route) {
+				                                        // If view has not changed we don't reload it.
+				                                        // TODO: Optionally force-reload view.
+				                                        return;
+				                                    }
+				                                    activeView = route;
+				                                    console.log("Show view", route, view);
+				                                    if (latestWidgets) {
+				                                        while (latestWidgets.length > 0) {
+				                                            latestWidgets.shift().destroy();
+				                                        }
+				                                    }
+				                                    return HELPERS.renderWidgetIntoDomId("view-content-container", view.widget).then(function (widgets) {
+				                                        widgets.reverse();
+				                                        latestWidgets = latestWidgets.concat(widgets);
+				                                    });
+				                                });
+				                            });
+				                            return callback(null);
+				                        }).fail(callback);
+				                    });
+				                })().then(function() {
+				                    return sammy;
+				                });
+				            }).fail(function(err) {
+				                console.error(err);                
+				            });
+
+				            return views.then(function(sammy) {
+				            	sammy.run("#/");
+				            });
 						});
 					}
 				}

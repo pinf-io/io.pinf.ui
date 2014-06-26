@@ -99,7 +99,7 @@ define(function() {
 						}
 
 						return self.setHTM(_htm).then(function(tag) {
-							$("CODE.setup-info-telnet").html("telnet " + window.API.config.hostname + " 8115");
+							$("CODE.setup-info-telnet").html("telnet log." + window.API.config.hostname + " 8115");
 							$('#modal-viewer-rawlog', tag).modal({
 								show: false
 							});
