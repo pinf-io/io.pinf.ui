@@ -28,7 +28,6 @@
 			<p>All log streams by <b>IP</b> and also by <b>Device</b> if sufficient metadata is available.</p>
 			<p>Once a log stream has been identified as belonging to a user it will show up under the <b>Identified</b> tab above as well.</p>
 
-			<div class="row">
 
 				<h3>Devices</h3>
 
@@ -37,20 +36,12 @@
 			        </tbody>
 			    </table>
 
-			</div>
-
-			<div class="row">
-
 				<h3>IPs</h3>
 
 			    <table class="table table-bordered table-condensed table-clickable-rows">
 			        <tbody x-widget="io.pinf.server.log/incoming-ips">
 			        </tbody>
 			    </table>
-
-			</div>
-
-			<div class="row">
 
 				<h3>Setup Information</h3>
 
@@ -61,7 +52,6 @@
 						<li>Select channel using first line: <code>&lt;device-id&gt;-&lt;instance-id&gt;\n</code></li>
 					</ul>
 				</ul>
-			</div>
 
 		</div>
 		<div class="tab-pane" id="identified">
@@ -69,8 +59,6 @@
 			<p>All log streams that could be tied to an identity. If the log you are looking
 			for does not show up here check the <b>Incoming</b> tab above. Maybe things failed before an 
 			identity could be established!</p>
-
-			<h3>Identities</h3>
 
 		    <table class="table table-bordered table-condensed table-clickable-rows">
 		        <tbody x-widget="io.pinf.server.log/incoming-identified">
