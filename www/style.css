@@ -2,3 +2,8 @@
 NAV.navbar-static-top {
 	padding-right: 10px;
 }
+
+TABLE.table-clickable-rows TR:hover {
+	background-color: #bcbcbc;
+	cursor: pointer;
+}

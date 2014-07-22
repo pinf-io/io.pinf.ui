@@ -29,6 +29,19 @@
 				}
 			}
 		},
+		"#/ci": {
+			"title": "Continuous Integration",
+			"widget": "io.pinf.ui/2-views/ci",
+			"aspects": {
+				"sidebar-menu-container": {
+					"label": "Integration"
+				}
+			}
+		},
+		"#/cd": {
+			"title": "Continuous Delivery",
+			"widget": "io.pinf.ui/2-views/cd"
+		},
 		"#/about": {
 			"title": "About PINF.io UI Prototype",
 			"widget": "io.pinf.ui/2-views/about"
