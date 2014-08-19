@@ -20,6 +20,11 @@
 			}
 		},
 		"/\\#\\/logs\\/?(.*)$/": {
+			"clearance": [
+				"OWNER",
+				"ADMIN",
+				"CORE-CONTRIBUTOR"
+			],
 			"link": "#/logs",
 			"title": "Logs",
 			"widget": "io.pinf.ui/2-views/logs",

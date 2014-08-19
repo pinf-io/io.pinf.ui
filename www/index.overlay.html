@@ -19,6 +19,8 @@
                 static: null
             },
             config: {{=at.config}}
+            // TODO: Remove this when only authorized elements make it to client.
+            , authorizedRoles: {{=at.session.roles}}
         };
     </script>
 

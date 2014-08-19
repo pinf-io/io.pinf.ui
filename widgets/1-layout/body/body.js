@@ -169,6 +169,18 @@ define(function() {
 				                            var latestWidgets = [];
 				                            Object.keys(views).forEach(function(routeExpr) {
 				                                var view = views[routeExpr];
+				                                var canShow = true;
+				                                // TODO: Reverse this. Only show if authorized and do this check on server.
+				                                if (typeof view.clearance !== "undefined") {
+				                                	canShow = false;
+				                                	view.clearance.forEach(function (role) {
+				                                		if (canShow) return;
+				                                		if (window.API.authorizedRoles.indexOf(role) !== -1) {
+				                                			canShow = true;
+				                                		}
+				                                	})
+				                                }
+				                                if (!canShow) return;
 				                                var route = routeExpr;
 				                                if (/^\/.+\/$/.test(routeExpr)) {
 				                                    routeExpr = new RegExp(route.replace(/(^\/|\/$)/g, ""));
