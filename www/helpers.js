@@ -26,6 +26,7 @@ define([
 		}
 		$("body").append('<div id="show-log-dialog-widget">' + JSON.stringify({
 			logPath: logPath,
+			type: options.type || "arbitrary",
 			updateUrlHash: options.updateUrlHash || false
 		}) + '</div>');
 		return renderWidgetIntoDomId("show-log-dialog-widget", "io.pinf.server.log/log-dialog").then(function (widgets) {
