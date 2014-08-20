@@ -4,10 +4,22 @@ define(function() {
 	return function() {
 		var self = this;
 
+		var tagContent = {};
+		try {
+			tagContent = JSON.parse(self.tagContent);
+		} catch(err) {
+			console.log("self.tagContent", self.tagContent);
+			console.error("Error parsing JSON:", err.stack);
+		}
+
+		if (!tagContent.uri) {
+			return;
+		}
+
 		return self.hook(
 			{},
 			{
-				"credentials": JSON.parse(self.tagContent).uri
+				"credentials": tagContent.uri
 			},
 			[
 				{
