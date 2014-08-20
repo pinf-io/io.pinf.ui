@@ -35,6 +35,11 @@
 			}
 		},
 		"#/ci": {
+			"clearance": [
+				"OWNER",
+				"ADMIN",
+				"CORE-CONTRIBUTOR"
+			],
 			"title": "Continuous Integration",
 			"widget": "io.pinf.ui/2-views/ci",
 			"aspects": {
@@ -44,6 +49,11 @@
 			}
 		},
 		"#/cd": {
+			"clearance": [
+				"OWNER",
+				"ADMIN",
+				"CORE-CONTRIBUTOR"
+			],
 			"title": "Continuous Delivery",
 			"widget": "io.pinf.ui/2-views/cd"
 		},
