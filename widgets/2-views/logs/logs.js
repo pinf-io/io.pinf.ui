@@ -23,7 +23,8 @@ define(function() {
 
 						self.api.showRawLogDialog = function(type, id) {
 							window.API.helpers.showLogDialog(id, {
-								type: type
+								type: type,
+								updateUrlHash: true
 							});
 						}
 
