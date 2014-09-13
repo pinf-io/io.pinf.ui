@@ -1,0 +1,13 @@
+{
+	"extends": "./index",
+	"$page": {
+		"upstream": {
+			"pathname": "/index.html"
+		}
+	},
+	"view": {
+		"widget": {
+			"body": "io.pinf.ui/1-layout/body/view"
+		}
+	}
+}

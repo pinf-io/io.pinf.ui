@@ -34,6 +34,11 @@
 				}
 			}
 		},
+		"/\\#\\/log-viewer\\/?(.*)$/": {
+			"link": "#/log-viewer",
+			"title": "Log Viewer",
+			"widget": "io.pinf.server.log/log-viewer"
+		},
 		"#/ci": {
 			"clearance": [
 				"OWNER",
