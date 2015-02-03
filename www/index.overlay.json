@@ -62,6 +62,20 @@
 			"title": "Continuous Delivery",
 			"widget": "io.pinf.ui/2-views/cd"
 		},
+		"#/profile": {
+			"clearance": [
+				"OWNER",
+				"ADMIN",
+				"CORE-CONTRIBUTOR"
+			],
+			"title": "Profiles",
+			"widget": "io.pinf.ui/2-views/profile",
+			"aspects": {
+				"sidebar-menu-container": {
+					"label": "Profiles"
+				}
+			}
+		},
 		"#/about": {
 			"title": "About PINF.io UI Prototype",
 			"widget": "io.pinf.ui/2-views/about"
