@@ -2,8 +2,9 @@ define([
 	"q",
 	"firewidgets",
 	"underscore",
-	"backbone"
-], function(Q, FIREWIDGETS, UNDERSCORE, BACKBONE) {
+	"backbone",
+	"jquery.pinf"
+], function(Q, FIREWIDGETS, UNDERSCORE, BACKBONE, PINF) {
 
 	function getViews() {
 		return Q.resolve(window.API.config.views);
@@ -40,11 +41,11 @@ define([
 		});
 	}
 
-
 	return {
 		API: {
 			Q: Q,
-			BACKBONE: BACKBONE
+			BACKBONE: BACKBONE,
+			PINF: PINF
 		},
 		getViews: getViews,
 		renderWidgetIntoDomId: renderWidgetIntoDomId,

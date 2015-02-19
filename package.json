@@ -6,7 +6,8 @@
   "dependencies": {
     "fs-extra": "~0.8.1",
     "pio": "^0.6",
-    "smi.cli": "0.x"
+    "smi.cli": "0.x",
+    "pinf-for-jquery": "0.1.x"
   },
   "scripts": {
     "install": "./node_modules/.bin/smi install"
