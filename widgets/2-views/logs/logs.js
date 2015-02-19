@@ -36,7 +36,7 @@ define(function() {
 							if (window.location.hash) {
 								var m = window.location.hash.match(/^\#\/logs\/([^\/]+)\/(.+)$/);
 								if (m) {
-									self.api.showRawLogDialog(m[1], m[2]);
+									self.api.showRawLogDialog(m[1], m[2].replace(/~/g, "/"));
 								}
 							}
 							return tag;
