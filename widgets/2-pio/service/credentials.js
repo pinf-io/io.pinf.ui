@@ -35,7 +35,7 @@ define(function() {
 								data.$status === 403 &&
 								data.requestScope
 							) {
-								return self.setHTM('<div class="alert alert-danger" role="alert">' + "Missing Credentials" + ' <a href="/?.requestScope=' + _credentials.data.requestScope + '&.returnTo=' + encodeURIComponent(window.location.href) + '" role="button" class="btn btn-primary">Use my credentials</a>' + '</div>');
+								return self.setHTM('<div class="alert alert-danger" role="alert">' + "Missing Credentials" + ' <a href="/?.requestScope=' + data.requestScope + '&.returnTo=' + encodeURIComponent(window.location.href) + '" role="button" class="btn btn-primary">Use my credentials</a>' + '</div>');
 							}
 
 							return self.setHTM('<div class="alert alert-danger" role="alert">' + data.$statusReason + '</div>');
