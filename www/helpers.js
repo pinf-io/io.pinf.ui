@@ -41,6 +41,27 @@ define([
 		});
 	}
 
+	function ensureFireConsole (instanceId) {
+		if (!ensureFireConsole._instance) {
+			ensureFireConsole._instance = {};
+		}
+		if (ensureFireConsole._instance[instanceId]) {
+			return ensureFireConsole._instance[instanceId];
+		}
+		var uri = "http://fireconsole-widget-console." + window.API.config.hostname + ":8013/demo.js";
+		var deferred = Q.defer();
+		$.pinf.sandbox(uri, function (sandbox) {
+	        return sandbox.main(null).then(deferred.resolve, deferred.reject);
+	    }, function (err) {
+	        console.error("Error while loading bundle '" + uri + "':", err.stack);
+	        return deferred.reject(err);
+	    });
+		return Q.when(deferred.promise).then(function (instance) {
+			ensureFireConsole._instance[instanceId] = instance;
+			return instance;
+		});
+	}
+
 	return {
 		API: {
 			Q: Q,
@@ -49,7 +70,8 @@ define([
 		},
 		getViews: getViews,
 		renderWidgetIntoDomId: renderWidgetIntoDomId,
-		showLogDialog: showLogDialog
+		showLogDialog: showLogDialog,
+		ensureFireConsole: ensureFireConsole
 	};
 
 });
